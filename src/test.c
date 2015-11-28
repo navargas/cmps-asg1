@@ -23,17 +23,27 @@
 
 #include <stdio.h>
 #include "minunit.h"
+#include "uims.h"
+#include "util.h"
 
 int tests_run = 0;
 
-static char* test_bar() {
-  int bar = 5;
-  mu_assert("error, bar != 5", bar == 5);
+static char* test_bool() {
+  bool testBool_f = false;
+  bool testBool_t = true;
+  mu_assert("False does not equal 0", testBool_f == 0);
+  mu_assert("True equals false", testBool_f != testBool_t);
+  return 0;
+}
+
+static char* uims_initial_state() {
+  mu_assert("Uims customerId does start at 0", UIMS.customerId == 0);
   return 0;
 }
 
 static char* all_tests() {
-  mu_run_test(test_bar);
+  mu_run_test(uims_initial_state);
+  mu_run_test(test_bool);
   return 0;
 }
 
