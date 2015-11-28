@@ -45,6 +45,8 @@ static char* uims_initial_state() {
 
 static char* test_sLItemList() {
   SLItemList* list = sLItemList.init();
+  char* uid = "thisistheuid";
+  sLItemList.pushFront(list, uid, 2);
   free(list);
   return 0;
 }

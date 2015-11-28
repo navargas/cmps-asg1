@@ -22,15 +22,6 @@
 
 #include <stdlib.h>
 #include "linked_list.h"
-/*
-extern const SLItemList sLItemList;
-typedef struct SLItemList {
-  SLItem* header;
-  SLItemList* init(void);
-  void (*pushFront)(SLItemList* this, char* uid, int cid);
-  SLItem* (*find)(SLItemList* this, char* uid);
-} SLItemList;
-*/
 
 
 SLItemList* init(void) {
@@ -40,6 +31,12 @@ SLItemList* init(void) {
 }
 
 void pushFront(SLItemList* this, char* uid, int cid) {
+  SLItem* newItem = malloc(sizeof(SLItem));
+  SLItem* oldHead = this->header;
+  newItem->userId = uid;
+  newItem->customerId = cid;
+  newItem->next = oldHead;
+  this->header = newItem;
 }
 
 SLItem* find(SLItemList* this, char* uid) {
