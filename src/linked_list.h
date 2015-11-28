@@ -15,6 +15,7 @@ struct SLItemList {
   SLItemList* (*init)(void);
   void (*pushFront)(SLItemList* this, char* uid, int cid);
   SLItem* (*find)(SLItemList* this, char* uid);
+  void (*free)(SLItemList* this);
 };
 extern const SLItemList sLItemList;
 #endif

@@ -47,7 +47,7 @@ static char* test_sLItemList() {
   SLItemList* list = sLItemList.init();
   char* uid = "thisistheuid";
   sLItemList.pushFront(list, uid, 2);
-  free(list);
+  sLItemList.free(list);
   return 0;
 }
 

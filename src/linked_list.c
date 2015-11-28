@@ -39,6 +39,16 @@ void pushFront(SLItemList* this, char* uid, int cid) {
   this->header = newItem;
 }
 
+void freeSLItemList(SLItemList* this) {
+  SLItem* onItem = this->header;
+  while (onItem != NULL) {
+    SLItem* lastItem = onItem;
+    onItem = lastItem->next;
+    free(lastItem);
+  }
+  free(this);
+}
+
 SLItem* find(SLItemList* this, char* uid) {
   return NULL;
 }
@@ -46,5 +56,6 @@ SLItem* find(SLItemList* this, char* uid) {
 const SLItemList sLItemList = {
   .init = init,
   .pushFront = pushFront,
-  .find = find
+  .find = find,
+  .free = freeSLItemList
 };
