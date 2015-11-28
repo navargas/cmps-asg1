@@ -46,7 +46,15 @@ static char* uims_initial_state() {
 static char* test_sLItemList() {
   SLItemList* list = sLItemList.init();
   char* uid = "thisistheuid";
-  sLItemList.pushFront(list, uid, 2);
+  char* uid2 = "thisistheuid2";
+  sLItemList.pushFront(list, uid, 1);
+  sLItemList.pushFront(list, uid2, 2);
+  SLItem* firstSLItem = sLItemList.find(list, uid);
+  SLItem* secondSLItem = sLItemList.find(list, uid2);
+  SLItem* doesNotExist = sLItemList.find(list, "thisdoesnotexist");
+  mu_assert("first item customer id does not equal 1", firstSLItem->customerId == 1);
+  mu_assert("second item customer id does not equal 2", secondSLItem->customerId == 2);
+  mu_assert("a match was found for a nonexistant uid", doesNotExist == NULL);
   sLItemList.free(list);
   return 0;
 }

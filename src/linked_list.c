@@ -21,6 +21,7 @@
 /******************************************************************************/
 
 #include <stdlib.h>
+#include <string.h>
 #include "linked_list.h"
 
 
@@ -50,6 +51,13 @@ void freeSLItemList(SLItemList* this) {
 }
 
 SLItem* find(SLItemList* this, char* uid) {
+  SLItem* onItem = this->header;
+  while (onItem != NULL) {
+    if (strcmp(onItem->userId, uid) == 0) {
+      return onItem;
+    }
+    onItem = onItem->next;
+  }
   return NULL;
 }
 
