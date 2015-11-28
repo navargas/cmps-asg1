@@ -1,6 +1,6 @@
 ALLC    = $(wildcard *.c)
 CC	= gcc
-FLAGS	= -Wall
+FLAGS	= -Wall -g
 
 .PHONY : all
 all :

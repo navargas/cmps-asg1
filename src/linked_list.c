@@ -19,3 +19,35 @@
 		License.
 */
 /******************************************************************************/
+
+#include <stdlib.h>
+#include "linked_list.h"
+/*
+extern const SLItemList sLItemList;
+typedef struct SLItemList {
+  SLItem* header;
+  SLItemList* init(void);
+  void (*pushFront)(SLItemList* this, char* uid, int cid);
+  SLItem* (*find)(SLItemList* this, char* uid);
+} SLItemList;
+*/
+
+
+SLItemList* init(void) {
+  SLItemList* item = malloc(sizeof(SLItemList));
+  item->header = NULL;
+  return item;
+}
+
+void pushFront(SLItemList* this, char* uid, int cid) {
+}
+
+SLItem* find(SLItemList* this, char* uid) {
+  return NULL;
+}
+
+const SLItemList sLItemList = {
+  .init = init,
+  .pushFront = pushFront,
+  .find = find
+};

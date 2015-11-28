@@ -9,9 +9,12 @@ struct SLItem {
 };
 
 /* Names from assignment pdf*/
-typedef const struct sLItemList {
+typedef struct SLItemList SLItemList;
+struct SLItemList {
   SLItem* header;
-  void (*pushFront)(char* uid, int cid);
-  SLItem* (*find)(char* uid);
-} sLItemList;
+  SLItemList* (*init)(void);
+  void (*pushFront)(SLItemList* this, char* uid, int cid);
+  SLItem* (*find)(SLItemList* this, char* uid);
+};
+extern const SLItemList sLItemList;
 #endif

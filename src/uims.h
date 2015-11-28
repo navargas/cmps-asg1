@@ -1,5 +1,4 @@
 #ifndef __uims_h__
-
 #define __uims_h__
 
 #include "util.h"

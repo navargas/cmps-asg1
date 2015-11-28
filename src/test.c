@@ -22,9 +22,11 @@
 /******************************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "minunit.h"
 #include "uims.h"
 #include "util.h"
+#include "linked_list.h"
 
 int tests_run = 0;
 
@@ -41,9 +43,16 @@ static char* uims_initial_state() {
   return 0;
 }
 
+static char* test_sLItemList() {
+  SLItemList* list = sLItemList.init();
+  free(list);
+  return 0;
+}
+
 static char* all_tests() {
   mu_run_test(uims_initial_state);
   mu_run_test(test_bool);
+  mu_run_test(test_sLItemList);
   return 0;
 }
 

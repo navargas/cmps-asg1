@@ -20,7 +20,7 @@ run	: $(BIN)
 
 .PHONY : test
 test 	: $(TESTBIN)
-	$(TESTBIN)
+	valgrind $(TESTBIN)
 
 .PHONY : clean
 clean	:
