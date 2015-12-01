@@ -22,6 +22,7 @@
 /******************************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "minunit.h"
 #include "uims.h"
@@ -34,6 +35,8 @@ static char* test_bool() {
   bool testBool_f = false;
   bool testBool_t = true;
   mu_assert("False does not equal 0", testBool_f == 0);
+  mu_assert("False is true", !testBool_f);
+  mu_assert("True is false", testBool_t);
   mu_assert("True equals false", testBool_f != testBool_t);
   return 0;
 }
@@ -59,10 +62,51 @@ static char* test_sLItemList() {
   return 0;
 }
 
+static char* test_binseq() {
+  char binstr[6+1];
+  digitToBinaryString(binstr, 4);
+  mu_assert("binary sequence for 4 does not equal 4",
+            strcmp(binstr, "000100") == 0);
+  digitToBinaryString(binstr, 0xF);
+  mu_assert("binary sequence for 15 does not equal 1111",
+            strcmp(binstr, "001111") == 0);
+  digitToBinaryString(binstr, 0b111111);
+  mu_assert("binary sequence for 0b111111 does not equal 111111",
+            strcmp(binstr, "111111") == 0);
+  const char s1[32] = "moLLY1";
+  const char expected[42] = "010110011000101111101111111100000001";
+  char* seqstr = allocBitseqStr(s1);
+  int res = stringToBitseq(seqstr, s1);
+  mu_assert("stringToBitseq did not return status 0",
+            res == 0);
+  mu_assert("Sample string moLLY1 does not equal expected output",
+            strcmp(expected, seqstr) == 0);
+  free(seqstr);
+  return 0;
+}
+
+static char* test_bitseqToDigitseq() {
+  char tstring[30] = "0000111100001111"; // k=4 should be 0,15,0,15
+  int* tarray = calloc(40,sizeof(int));
+  int expected4[4] = {0,15,0,15};
+  int expected8[2] = {15,15};
+//int bitseqToDigitseq(int* intarray, char* bs, int k) {
+  bitseqToDigitseq(tarray, tstring, 4);
+  mu_assert("Bit sequence does not equal digit sequence when k=4",
+            memcmp(tarray, expected4, sizeof(expected4)) == 0);
+  bitseqToDigitseq(tarray, tstring, 8);
+  mu_assert("Bit sequence does not equal digit sequence when k=8",
+            memcmp(tarray, expected8, sizeof(expected8)) == 0);
+  free(tarray);
+  return 0;
+}
+
 static char* all_tests() {
   mu_run_test(uims_initial_state);
   mu_run_test(test_bool);
   mu_run_test(test_sLItemList);
+  mu_run_test(test_binseq);
+  mu_run_test(test_bitseqToDigitseq);
   return 0;
 }
 
