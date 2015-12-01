@@ -22,6 +22,10 @@ run	: $(BIN)
 test 	: $(TESTBIN)
 	valgrind $(TESTBIN)
 
+.PHONY : vim
+vim	:
+	tmux-next make test
+
 .PHONY : clean
 clean	:
 	$(RM) $(BIN) $(TESTBIN)
