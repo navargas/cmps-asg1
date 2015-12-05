@@ -28,6 +28,7 @@
 #include "uims.h"
 #include "util.h"
 #include "linked_list.h"
+#include "primes.h"
 
 int tests_run = 0;
 
@@ -52,6 +53,7 @@ static char* test_sLItemList() {
   char* uid2 = "thisistheuid2";
   sLItemList.pushFront(list, uid, 1);
   sLItemList.pushFront(list, uid2, 2);
+  sLItemList.pushFront(list, "another item", 3);
   SLItem* firstSLItem = sLItemList.find(list, uid);
   SLItem* secondSLItem = sLItemList.find(list, uid2);
   SLItem* doesNotExist = sLItemList.find(list, "thisdoesnotexist");
@@ -81,6 +83,11 @@ static char* test_binseq() {
             res == 0);
   mu_assert("Sample string moLLY1 does not equal expected output",
             strcmp(expected, seqstr) == 0);
+  res = stringToBitseq(seqstr, "0");
+  mu_assert("stringToBitseq did not return status 0",
+            res == 0);
+  mu_assert("The zero character does not map to 62",
+            strcmp("111110", seqstr) == 0);
   free(seqstr);
   return 0;
 }
@@ -101,12 +108,18 @@ static char* test_bitseqToDigitseq() {
   return 0;
 }
 
+static char* test_primes() {
+  mu_assert("The 1000th prime is not 7919", primes[999] == 7919);
+  return 0;
+}
+
 static char* all_tests() {
   mu_run_test(uims_initial_state);
   mu_run_test(test_bool);
   mu_run_test(test_sLItemList);
   mu_run_test(test_binseq);
   mu_run_test(test_bitseqToDigitseq);
+  mu_run_test(test_primes);
   return 0;
 }
 
