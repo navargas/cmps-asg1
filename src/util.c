@@ -27,10 +27,12 @@
 /* This data was generated from utils/gen_ascii_map.py
  * This allows for O(1) time lookup of characters in
  * the charmap provided by the assignment pdf.
+ * The value for '0' was moved to the map value 62
+ * to avoid position uncertainty at the leftmost side.
  * Letters are looked up in the following way:
  *    asciimap[char - 48] = position in assignment character list*/
 char asciimap[ASCII_MAP_LEN] =
-    {0,1,2,3,4,5,6,7,8,9,255,255,255,255,255,255,255,36,37,38,39,
+    {62,1,2,3,4,5,6,7,8,9,255,255,255,255,255,255,255,36,37,38,39,
      40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,
      60,61,255,255,255,255,255,255,10,11,12,13,14,15,16,17,18,19,
      20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
@@ -80,6 +82,8 @@ int bitseqToDigitseq(int* intarray, char* bs, int k) {
   int c = 0;
   while (*bs != 0) {
     for (c = 0; c<k; c++) {
+      // return if end of the array is reached mid sequence
+      if (*bs == 0) return 0;
       assert(*bs == '0' || *bs == '1');
       k_segment <<= 1;
       k_segment = k_segment | (*bs - '0');
