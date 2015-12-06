@@ -38,4 +38,4 @@ $(TESTBIN)  : $(TESTC)
 # and "test" targets above.
 .PHONY : remote
 remote :
-	$(CC) $(FLAGS) -C $(ALLC)
+	$(CC) $(FLAGS) -c $(ALLC)
