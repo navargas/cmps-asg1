@@ -32,9 +32,9 @@ clean	:
 	$(RM) $(wildcard src/*.o)
 
 $(BIN)  : $(MAINC)
-	$(MAKE) -C $(SRC) all
+	$(MAKE) -C $(SRC) remote
 	gcc $(MAINO) -o $(BIN)
 
 $(TESTBIN) : $(TESTC)
-	$(MAKE) -C $(SRC) all
+	$(MAKE) -C $(SRC) remote
 	gcc $(TESTO) -o $(TESTBIN)
