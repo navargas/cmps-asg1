@@ -23,7 +23,7 @@ struct Uims {
   int (*lookupCustomerId)(Uims* this, char* uid);
   int (*hash)(Uims* this, char* uid);
   void (*generateSalt)(Uims* this);
-  int (*load)(Uims* this);
+  float (*load)(Uims* this);
   void (*reallocate)(Uims* this);
   void (*free)(Uims* this);
 };

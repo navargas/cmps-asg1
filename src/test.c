@@ -43,14 +43,29 @@ static char* test_bool() {
 }
 
 static char* uims_initial_state() {
+  printf("\tTesting UIMS\n");
   Uims* new_uims = uims.init();
   mu_assert("Uims customerId does start at 0", new_uims->customerId == 0);
-  print_uims(new_uims);
+  uims.add(new_uims, "test_string");
+  uims.add(new_uims, "est_string");
+  uims.add(new_uims, "st_string");
+  uims.add(new_uims, "t_string");
+  uims.add(new_uims, "_string");
+  uims.add(new_uims, "string");
+  uims.add(new_uims, "tring");
+  uims.add(new_uims, "ring");
+  uims.add(new_uims, "ing");
+  uims.add(new_uims, "test_strin");
+  mu_assert("Occupied string is available",
+            uims.isAvailable(new_uims, "test_string") == false);
+  mu_assert("Unoccupied string is not available",
+            uims.isAvailable(new_uims, "never_used") == true);
   uims.free(new_uims);
   return 0;
 }
 
 static char* test_sLItemList() {
+  printf("\tTesting linked list\n");
   SLItemList* list = sLItemList.init();
   char* uid = "thisistheuid";
   char* uid2 = "thisistheuid2";
@@ -68,6 +83,7 @@ static char* test_sLItemList() {
 }
 
 static char* test_binseq() {
+  printf("\tTesting binary helpers\n");
   char binstr[6+1];
   digitToBinaryString(binstr, 4);
   mu_assert("binary sequence for 4 does not equal 4",
@@ -96,6 +112,7 @@ static char* test_binseq() {
 }
 
 static char* test_bitseqToDigitseq() {
+  printf("\tTesting bitseqToDigitseq\n");
   char tstring[30] = "0000111100001111"; // k=4 should be 0,15,0,15
   int* tarray = calloc(40,sizeof(int));
   int expected4[4] = {0,15,0,15};
@@ -112,6 +129,7 @@ static char* test_bitseqToDigitseq() {
 }
 
 static char* test_primes() {
+  printf("\tTesting primes\n");
   mu_assert("The 1000th prime is not 7919", primes[999] == 7919);
   return 0;
 }
@@ -128,13 +146,13 @@ static char* all_tests() {
 
 int main(int argc, char* argv[]) {
   (void) argc; (void) argv;
-  printf("Testing ===================================================\n");
+  printf("Testing ===================================================\n\n");
   char *result = all_tests();
   if (result != 0) {
    printf("%s\n", result);
   }
   else {
-   printf("ALL TESTS PASSED\n");
+   printf("\nALL TESTS PASSED\n");
   }
   printf("Tests run: %d\n", tests_run);
   printf("===========================================================\n");

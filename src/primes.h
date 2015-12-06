@@ -5,5 +5,6 @@
 // generated from gen_primes.py
 // defined in primes.c
 extern int primes[1000];
+extern const int NUMBER_OF_PRIMES;
 
 #endif

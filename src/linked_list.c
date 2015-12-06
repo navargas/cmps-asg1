@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "util.h"
 #include "linked_list.h"
 
 
@@ -43,15 +44,19 @@ void pushFront(SLItemList* this, char* uid, int cid) {
   this->header = newItem;
 }
 
-void freeSLItemList(SLItemList* this) {
+void freeSLItemList(SLItemList* this, bool free_userId) {
   SLItem* onItem = this->header;
   while (onItem != NULL) {
     SLItem* lastItem = onItem;
     onItem = lastItem->next;
-    free(lastItem->userId);
+    if (free_userId) free(lastItem->userId);
     free(lastItem);
   }
   free(this);
+}
+
+void freeSLItemList_with_items(SLItemList* this) {
+  freeSLItemList(this, true);
 }
 
 SLItem* find(SLItemList* this, char* uid) {
@@ -69,5 +74,5 @@ const SLItemList sLItemList = {
   .init = init,
   .pushFront = pushFront,
   .find = find,
-  .free = freeSLItemList
+  .free = freeSLItemList_with_items
 };

@@ -18,4 +18,7 @@ struct SLItemList {
   void (*free)(SLItemList* this);
 };
 extern const SLItemList sLItemList;
+
+void freeSLItemList(SLItemList* this, bool free_userId);
+
 #endif
