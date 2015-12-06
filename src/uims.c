@@ -47,7 +47,7 @@ void print_uims(Uims* item) {
 Uims* uimsinit(void) {
   Uims* item = malloc(sizeof(Uims));
   item->customerId = 0;
-  item->table_size = 37; // a prime number
+  item->table_size = 131; // a prime number
   item->userT = calloc(sizeof(hashItem*), item->table_size);
   return item;
 }
