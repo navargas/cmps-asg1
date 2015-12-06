@@ -1,0 +1,12 @@
+# BestStuffEver
+# Nicholas Vargas
+# Written in C as per https://piazza.com/class/if3unbtsjj92il?cid=153
+
+To run:
+   make
+   ./BestStuffEver INPUT
+
+If no filename is given, stdin will be used
+
+To run tests:
+   make test

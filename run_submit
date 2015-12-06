@@ -1,0 +1,2 @@
+#!/bin/bash
+cd src/ && submit cmps101-rj.f15 prog01 * && cd - && echo done
