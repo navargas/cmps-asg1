@@ -18,6 +18,12 @@ all : $(BIN)
 test : $(TESTBIN)
 	valgrind ./$(TESTBIN)
 
+.PHONY : clean
+clean :
+	rm -f *.o
+	rm -f $(BIN)
+	rm -f $(TESTBIN)
+
 $(BIN)  : $(MAINC)
 	$(CC) $(FLAGS) -c $(ALLC)
 	$(CC) $(MAINO) -o $(BIN)
