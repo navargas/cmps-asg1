@@ -43,7 +43,10 @@ static char* test_bool() {
 }
 
 static char* uims_initial_state() {
-  mu_assert("Uims customerId does start at 0", UIMS.customerId == 0);
+  Uims* new_uims = uims.init();
+  mu_assert("Uims customerId does start at 0", new_uims->customerId == 0);
+  print_uims(new_uims);
+  uims.free(new_uims);
   return 0;
 }
 
