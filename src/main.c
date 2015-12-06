@@ -22,7 +22,41 @@
 */
 /******************************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "uims.h"
+
+void command_line_eval(FILE* input) {
+  char    *buffer = NULL;
+  size_t  n = 0;
+  int chars;
+  Uims* UIMS = uims.init();
+  while (1) {
+    // this must be freed
+    chars = getline(&buffer, &n, input);
+    if (chars < 0) {
+      free(buffer);
+      break;
+    }
+    // strip trailing newline
+    buffer[chars-1] = 0;
+    uims.add(UIMS, buffer);
+    free(buffer);
+    buffer = NULL;
+    n = 0;
+  }
+  print_uims(UIMS);
+  uims.free(UIMS);
+}
+
 int main(int argc, char* argv[]) {
   (void) argv; (void) argc;
+  FILE* input = stdin;
+  if (argc > 1) {
+    input = fopen(argv[1], "r");
+  }
+  command_line_eval(input);
+  fclose(input);
   return 0;
 }

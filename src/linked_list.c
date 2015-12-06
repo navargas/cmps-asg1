@@ -34,7 +34,10 @@ SLItemList* init(void) {
 void pushFront(SLItemList* this, char* uid, int cid) {
   SLItem* newItem = malloc(sizeof(SLItem));
   SLItem* oldHead = this->header;
-  newItem->userId = uid;
+  // 17 = 16 chars + null terminator
+  char* uidstr = malloc(sizeof(char) * 17);
+  strcpy(uidstr, uid);
+  newItem->userId = uidstr;
   newItem->customerId = cid;
   newItem->next = oldHead;
   this->header = newItem;
@@ -45,6 +48,7 @@ void freeSLItemList(SLItemList* this) {
   while (onItem != NULL) {
     SLItem* lastItem = onItem;
     onItem = lastItem->next;
+    free(lastItem->userId);
     free(lastItem);
   }
   free(this);
