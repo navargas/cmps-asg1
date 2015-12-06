@@ -2,24 +2,33 @@
 #define __uims_h__
 
 #include "util.h"
+#include "linked_list.h"
 
-typedef int hashItem; // placeholder
+
+typedef SLItemList* hashItem; // placeholder
 
 /* wonky namespace style from
  * http://stackoverflow.com/a/28535585/3875024
  * Names from assignment pdf*/
-typedef const struct uims {
+typedef struct Uims Uims;
+struct Uims {
   int salt;
   size_t m; // hash table load
   int customerId;
+  int table_size;
   hashItem* userT; // hash table data
-  bool (*isAvailable)(char* uid);
-  int (*lookupCustomerId)(char* uid);
-  int (*hash)(char* uid);
-  void (*generateSalt)(void);
-  int (*load)(void);
-  void (*reallocate)(void);
-} uims;
+  Uims* (*init)(void);
+  bool (*isAvailable)(Uims* this, char* uid);
+  void (*add)(Uims* this, char* uid);
+  int (*lookupCustomerId)(Uims* this, char* uid);
+  int (*hash)(Uims* this, char* uid);
+  void (*generateSalt)(Uims* this);
+  int (*load)(Uims* this);
+  void (*reallocate)(Uims* this);
+  void (*free)(Uims* this);
+};
 
-extern const uims UIMS;
+void print_uims(Uims* item);
+
+extern const Uims uims;
 #endif
