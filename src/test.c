@@ -117,7 +117,6 @@ static char* test_bitseqToDigitseq() {
   int* tarray = calloc(40,sizeof(int));
   int expected4[4] = {0,15,0,15};
   int expected8[2] = {15,15};
-//int bitseqToDigitseq(int* intarray, char* bs, int k) {
   bitseqToDigitseq(tarray, tstring, 4);
   mu_assert("Bit sequence does not equal digit sequence when k=4",
             memcmp(tarray, expected4, sizeof(expected4)) == 0);

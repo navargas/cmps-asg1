@@ -46,9 +46,9 @@ char* allocBitseqStr(const char* digits) {
 }
 
 void digitToBinaryString(char* opstr, char value) {
-  // opstr will always be 6 digits
-  //char* opstr = calloc(sizeof(char) * 6 + 1);
-  //memset(opstr, 0, 6+1);
+  /* opstr will always be 6 digits
+   * char* opstr = calloc(sizeof(char) * 6 + 1);
+   * memset(opstr, 0, 6+1);*/
   assert(value <= 0b111111);
   opstr[6] = '\0'; //null plug
   char mask = 0b100000 << 1;
@@ -82,7 +82,7 @@ int bitseqToDigitseq(int* intarray, char* bs, int k) {
   int c = 0;
   while (*bs != 0) {
     for (c = 0; c<k; c++) {
-      // return if end of the array is reached mid sequence
+      /* return if end of the array is reached mid sequence */
       if (*bs == 0) return 0;
       assert(*bs == '0' || *bs == '1');
       k_segment <<= 1;

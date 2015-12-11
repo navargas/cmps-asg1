@@ -35,7 +35,7 @@ SLItemList* init(void) {
 void pushFront(SLItemList* this, char* uid, int cid) {
   SLItem* newItem = malloc(sizeof(SLItem));
   SLItem* oldHead = this->header;
-  // 17 = 16 chars + null terminator
+  /* 17 = 16 chars + null terminator */
   char* uidstr = malloc(sizeof(char) * 17);
   strcpy(uidstr, uid);
   newItem->userId = uidstr;
@@ -45,6 +45,8 @@ void pushFront(SLItemList* this, char* uid, int cid) {
 }
 
 void freeSLItemList(SLItemList* this, bool free_userId) {
+  /* deallocate SLItemList object
+   * if free_userId free inner char* memory */
   SLItem* onItem = this->header;
   while (onItem != NULL) {
     SLItem* lastItem = onItem;
@@ -60,6 +62,7 @@ void freeSLItemList_with_items(SLItemList* this) {
 }
 
 SLItem* find(SLItemList* this, char* uid) {
+  /* perform a linear search over the items in 'this' */
   SLItem* onItem = this->header;
   while (onItem != NULL) {
     if (strcmp(onItem->userId, uid) == 0) {

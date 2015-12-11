@@ -27,6 +27,7 @@
 #include "linked_list.h"
 
 void print_uims(Uims* item) {
+  /* print the uids contained at each position in the hash table */
   int c;
   for (c = 0; c < item->table_size; c++) {
     SLItemList* on = item->userT[c];
@@ -34,7 +35,7 @@ void print_uims(Uims* item) {
       printf("%d - ", c);
       SLItem* onItem = on->header;
       while (onItem != NULL) {
-        printf(onItem->userId, "");
+        printf("%s (%d)", onItem->userId, onItem->customerId);
         if (onItem->next != NULL) printf(", ");
         onItem = onItem->next;
       }
@@ -66,6 +67,7 @@ int hashc(char* str, int table_size) {
 }
 
 void addc(hashItem* hashT, char* uid, int cid, int table_size) {
+  /* generalized form of add() */
   int target_hash = hashc(uid, table_size);
   SLItemList* target = hashT[target_hash];
   if (target  == 0) {
@@ -78,6 +80,7 @@ void addc(hashItem* hashT, char* uid, int cid, int table_size) {
 }
 
 void add(Uims* this, char* uid) {
+  /* add new uid to the UIMS */
   if (uims.load(this) > .75) {
     uims.reallocate(this);
   }
